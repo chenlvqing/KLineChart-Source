@@ -85,7 +85,7 @@ export interface Chart {
   getDataList: () => KLineData[]
   applyNewData: (dataList: KLineData[], more?: boolean) => void
   applyMoreData: (dataList: KLineData[], more?: boolean) => void
-  updateData: (data: KLineData) => void
+  updateData: (data: KLineData, pos?: number) => void
   loadMore: (cb: LoadMoreCallback) => void
   createIndicator: (value: string | IndicatorCreate, isStack?: boolean, paneOptions?: PaneOptions, callback?: () => void) => Nullable<string>
   overrideIndicator: (override: IndicatorCreate, paneId?: string, callback?: () => void) => void
@@ -493,7 +493,7 @@ export default class ChartImp implements Chart {
     }
   }
 
-  updateData (data: KLineData): void {
+  updateData (data: KLineData, pos?: number): void {
     const dataList = this._chartStore.getDataList()
     const dataCount = dataList.length
     // Determine where individual data should be added
@@ -510,6 +510,16 @@ export default class ChartImp implements Chart {
           this.adjustPaneViewport(false, true, true, true)
         }
       ).catch(_ => {})
+    } else {
+      const testnum = pos
+      if (testnum !== undefined && testnum !== null) {
+        this._chartStore.addData(data, testnum)
+        this._chartStore.getIndicatorStore().calcInstance().then(
+          _ => {
+            this.adjustPaneViewport(false, true, true, true)
+          }
+        ).catch(_ => {})
+      }
     }
   }
 

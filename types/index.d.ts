@@ -874,7 +874,7 @@ export interface Chart {
 	getDataList: () => KLineData[];
 	applyNewData: (dataList: KLineData[], more?: boolean) => void;
 	applyMoreData: (dataList: KLineData[], more?: boolean) => void;
-	updateData: (data: KLineData) => void;
+	updateData: (data: KLineData, pos?: number) => void;
 	loadMore: (cb: LoadMoreCallback) => void;
 	createIndicator: (value: string | IndicatorCreate, isStack?: boolean, paneOptions?: PaneOptions, callback?: () => void) => Nullable<string>;
 	overrideIndicator: (override: IndicatorCreate, paneId?: string, callback?: () => void) => void;
