@@ -14,5 +14,7 @@ module.exports = {
   overrides: [
   ],
   rules: {
+    "@typescript-eslint/restrict-plus-operands":0,
+    "@typescript-eslint/strict-boolean-expressions":0
   }
 }
